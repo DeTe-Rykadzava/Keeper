@@ -1,0 +1,162 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Keeper.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Keeper.Views.GroupVisitView"
+             x:DataType="vm:MainViewModel">
+  <Grid RowDefinitions="auto,auto,auto,auto" Margin="20 0">
+
+    <TextBlock Text="Форма записи на посещение мероприятия" HorizontalAlignment="Center" FontSize="18" Margin="0 20" />
+      <!-- верх -->
+      <DockPanel Grid.Row="1" Margin="0 10">
+        <Border CornerRadius="15" Margin="0 0 10 0" >
+          <Border.Background>
+            <SolidColorBrush Color="LightGray" Opacity="0.6" />
+          </Border.Background>
+          <DockPanel>
+            <Border Background="Orange" CornerRadius="15" DockPanel.Dock="Top" Padding="10">
+              <TextBlock Text="Информация для пропуска" HorizontalAlignment="Center" FontSize="16"/>
+            </Border>
+            <StackPanel HorizontalAlignment="Center" Spacing="5" Margin="20">
+              <TextBlock Text="Срок действия заявки: " HorizontalAlignment="Center"/>
+              <StackPanel Orientation="Horizontal" Spacing="5">
+                <TextBlock Text="с*" VerticalAlignment="Center"/>
+                <CalendarDatePicker CornerRadius="15"
+                    SelectedDate="{Binding CurrentVisitModel.ValidityApplicationBegin}"
+                    DisplayDateStart="{Binding CurrentVisitModel.MinBeginDate}"
+                    DisplayDateEnd="{Binding CurrentVisitModel.MaxBeginDate}"
+                    Text="{Binding CurrentVisitModel.ValidityApplicationBegin}"/>
+                <TextBlock Text="по" VerticalAlignment="Center"/>
+                <CalendarDatePicker CornerRadius="15"
+                    SelectedDate="{Binding CurrentVisitModel.ValidityApplicationEnd}"
+                    DisplayDateStart="{Binding CurrentVisitModel.MinEndDate}"
+                    DisplayDateEnd="{Binding CurrentVisitModel.MaxEndDate}"
+                    Text="{Binding CurrentVisitModel.ValidityApplicationEnd}"/>
+              </StackPanel>
+              <TextBlock Text="Цель посещения" HorizontalAlignment="Center"/>
+              <TextBox Text="{Binding CurrentVisitModel.Purpose}" />
+            </StackPanel>
+          </DockPanel>
+        </Border>
+        <Border CornerRadius="15" Margin="10 0 0 0" >
+          <Border.Background>
+            <SolidColorBrush Color="LightGray" Opacity="0.6" />
+          </Border.Background>
+          <DockPanel>
+            <Border Background="Orange" CornerRadius="15" DockPanel.Dock="Top" Padding="10">
+              <TextBlock Text="Принимающая сторона" HorizontalAlignment="Center" FontSize="16"/>
+            </Border>
+            <StackPanel Spacing="5" Margin="20">
+              <TextBlock Text="Подразделение*:" HorizontalAlignment="Left"/>
+                <ComboBox HorizontalAlignment="Stretch" 
+                          SelectedItem="{Binding CurrentVisitModel.SelectedSubdivision}"
+                          Items="{Binding CurrentVisitModel.Subdivisions}">
+                  <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{Binding subdivisionName}"/>
+                    </DataTemplate>
+                  </ComboBox.ItemTemplate>
+                </ComboBox>
+              <TextBlock Text="ФИО*:" HorizontalAlignment="Left"/>
+              <TextBox  IsReadOnly="True" 
+                        Text="{Binding CurrentVisitModel.SelectedSubdivision.employeeName}"/>
+            </StackPanel>
+          </DockPanel>
+        </Border>
+      </DockPanel>
+
+             <!-- центр  -->
+      <Border Grid.Row="2" CornerRadius="15" Margin="0 10">
+        <Border.Background>
+          <SolidColorBrush Color="LightGray" Opacity="0.6" />
+        </Border.Background>
+        <DockPanel>
+        <Border Background="Orange" CornerRadius="15" DockPanel.Dock="Top" Padding="10">
+          <TextBlock Text="Информация о посетителе" HorizontalAlignment="Center" FontSize="16"/>
+        </Border>
+        <Grid ColumnDefinitions="*,*,*" Margin="10 10">
+          <StackPanel Spacing="20" Margin="10" VerticalAlignment="Center">
+            <Grid ColumnDefinitions="*,3*">
+              <TextBlock Text="Фамилия*:"  VerticalAlignment="Center" />
+              <TextBox Grid.Column="1" Text="{Binding CurrentVisitModel.SelectedCustomer.Surname}" CornerRadius="10" />
+            </Grid>
+            <Grid ColumnDefinitions="*,3*">
+              <TextBlock Text="Имя*:" VerticalAlignment="Center" />
+              <TextBox Grid.Column="1" Text="{Binding CurrentVisitModel.SelectedCustomer.Name}" CornerRadius="10" />
+            </Grid>
+            <Grid ColumnDefinitions="*,3*">
+              <TextBlock Text="Отчество:" VerticalAlignment="Center" />
+              <TextBox Grid.Column="1" Text="{Binding CurrentVisitModel.SelectedCustomer.Patronymic}" CornerRadius="10" />
+            </Grid>
+            <Grid ColumnDefinitions="*,3*">
+              <TextBlock Text="Телефон:" VerticalAlignment="Center"  />
+              <MaskedTextBox Grid.Column="1" Text="{Binding CurrentVisitModel.SelectedCustomer.Phone}" CornerRadius="10" Mask="+7 (000) 000 00-00"/>
+            </Grid>
+            <Grid ColumnDefinitions="*,3*">
+              <TextBlock Text="Email*:" VerticalAlignment="Center" />
+              <TextBox Grid.Column="1" Text="{Binding CurrentVisitModel.SelectedCustomer.Email}" CornerRadius="10" />
+            </Grid>
+          </StackPanel>
+          <StackPanel Grid.Column="1" Spacing="20" Margin="10" VerticalAlignment="Center">
+            <Grid ColumnDefinitions="*,3*">
+              <TextBlock Text="Организация:" VerticalAlignment="Center" />
+              <TextBox Grid.Column="1" Text="{Binding CurrentVisitModel.SelectedCustomer.Organization}" CornerRadius="10" />
+            </Grid>
+            <Grid ColumnDefinitions="*,3*">
+              <TextBlock Text="Примечание*:" VerticalAlignment="Center" />
+              <TextBox Grid.Column="1" Text="{Binding CurrentVisitModel.SelectedCustomer.Note}" CornerRadius="10" />
+            </Grid>
+            <Grid ColumnDefinitions="*,3*">
+              <TextBlock Text="Дата рождения*:" VerticalAlignment="Center" />
+              <CalendarDatePicker Grid.Column="1" SelectedDate="{Binding CurrentVisitModel.SelectedCustomer.BirthOfDate}"
+                          DisplayDateEnd="{Binding CurrentVisitModel.SelectedCustomer.MinCustomerYear}"
+                          Text="{Binding CurrentVisitModel.SelectedCustomer.BirthOfDate}"
+                          CornerRadius="10" HorizontalAlignment="Stretch" />
+            </Grid>
+            <Grid ColumnDefinitions="*,3*">
+              <TextBlock Text="Серия*:" VerticalAlignment="Center" />
+              <MaskedTextBox Grid.Column="1" Text="{Binding CurrentVisitModel.SelectedCustomer.SeriaPasport}" CornerRadius="10" Mask="0000" />
+            </Grid>
+            <Grid ColumnDefinitions="*,3*">
+              <TextBlock Text="Номер*:" VerticalAlignment="Center" />
+              <MaskedTextBox Grid.Column="1" Text="{Binding CurrentVisitModel.SelectedCustomer.NumberPasport}" CornerRadius="10" Mask="000000" />
+            </Grid>
+          </StackPanel>
+          <DockPanel Grid.Column="2" Margin="10" VerticalAlignment="Center">
+            <Button DockPanel.Dock="Bottom" Content="Загрузить фото" Background="White" Margin="0 10 0 0"
+                    BorderBrush="Orange" BorderThickness="1" CornerRadius="10" HorizontalAlignment="Center"
+                    Command="{Binding CurrentVisitModel.SelectedCustomer.ShowPickImageCommand}"/>
+            <Panel Width="150" Height="150">
+              <Image Source="/Assets/User.jpg" Width="150" Height="150" IsVisible="{Binding CurrentVisitModel.SelectedCustomer.PhotoBit, Converter={x:Static ObjectConverters.IsNull}}"/>
+              <Image Source="{Binding CurrentVisitModel.SelectedCustomer.PhotoBit}" Width="150" Height="150" IsVisible="{Binding CurrentVisitModel.SelectedCustomer.PhotoBit, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+            </Panel>
+          </DockPanel>
+        </Grid>
+      </DockPanel>
+    </Border>
+                <!-- низ -->
+    <Grid Grid.Row="3" ColumnDefinitions="2*,*" Margin="0 10">
+      <Border CornerRadius="15" >
+        <Border.Background>
+          <SolidColorBrush Color="LightGray" Opacity="0.6" />
+        </Border.Background>
+        <DockPanel>
+          <Border Background="Orange" CornerRadius="15" DockPanel.Dock="Top" Padding="10">
+            <TextBlock Text="Прикрепляемые документы" HorizontalAlignment="Center" FontSize="16"/>
+          </Border>
+          <StackPanel Spacing="5" Margin="20">
+            <Button Content="прикрепить файл" Background="Transparent" CornerRadius="10" Command="{Binding CurrentVisitModel.PickPasportCommand}"/>
+          </StackPanel>
+        </DockPanel>
+      </Border>
+      <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Spacing="10">
+        <Button Content="Очистить форму" Foreground="LightGray" Padding="20 5"
+                CornerRadius="10" Background="Transparent" Command="{Binding CurrentVisitModel.ResetFormCommand}" />
+        <Button Content="Оформить заявку" Padding="20 5"
+                CornerRadius="10" BorderBrush="Orange" BorderThickness="2" Background="Transparent" Command="{Binding CurrentVisitModel.SendFormCommand}"/>
+      </StackPanel>
+    </Grid>
+  </Grid>
+</UserControl>

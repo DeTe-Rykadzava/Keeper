@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Keeper.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Keeper.Views.MainView"
+             x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+  
+  <Panel>
+    <DockPanel Margin="10" LastChildFill="true">
+      <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Stretch" DockPanel.Dock="Top" Height="55" >
+        <Button Background="Transparent" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
+                Command="{Binding ShowMainCommand}">
+          <StackPanel Orientation="Horizontal" Spacing="20" >
+            <Image Source="/Assets/Icon.png" VerticalAlignment="Center" />
+            <TextBlock Text="ХранительПРО" VerticalAlignment="Center" FontWeight="Bold" />
+          </StackPanel>
+        </Button>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center" Spacing="5" Margin="0 0 10 0" >
+          <Button Content="Войти / Зарегистрироваться" Command="{Binding ShowSingCommand}"
+                  IsVisible="{Binding UserID, Converter={x:Static ObjectConverters.IsNull}}"/>
+          <Button Padding="0" Background="Transparent" IsVisible="{Binding UserID, Converter={x:Static ObjectConverters.IsNotNull}}" Command="{Binding ShowMainCommand}"
+                  Height="50" ClipToBounds="True">
+            <Image Source="/Assets/User.jpg" Stretch="Uniform" />
+          </Button>
+          <Button Content="Выйти" Height="50" Command="{Binding SignOutCommand}" VerticalContentAlignment="Center" IsVisible="{Binding UserID, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+        </StackPanel>
+      </DockPanel>
+      <Panel>
+        <UserControl Content="{Binding CurrentWebPage}" Margin="5 10" >
+        </UserControl>
+      </Panel>
+    </DockPanel>
+  </Panel>
+  
+</UserControl>

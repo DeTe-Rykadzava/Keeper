@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Keeper.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Keeper.Views.WebAuthRegistration"
+             x:DataType="vm:MainViewModel">
+    <Panel>
+    <Border HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" BorderBrush="Black" BorderThickness="1" MinWidth="500" CornerRadius="15" ClipToBounds="True">
+        <DockPanel Margin="10">
+            <DockPanel Margin="10">
+                <DockPanel DockPanel.Dock="Top" LastChildFill="False">
+                    <TextBlock Text="Авторизация" VerticalAlignment="Center" DockPanel.Dock="Left" IsVisible="{Binding IsSignIn}" FontWeight="Bold"/>
+                    <TextBlock Text="Регистрация" VerticalAlignment="Center" DockPanel.Dock="Left" IsVisible="{Binding !IsSignIn}" FontWeight="Bold"/>
+                    <Button DockPanel.Dock="Right" Content="Зарегистрироваться" IsVisible="{Binding IsSignIn}" Command="{Binding SwapSingState}">
+                        <Button.CommandParameter>
+                            <sys:Int32>1</sys:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Content="Авторизироваться" IsVisible="{Binding !IsSignIn}" Command="{Binding SwapSingState}">
+                        <Button.CommandParameter>
+                            <sys:Int32>0</sys:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Bottom">
+                <Button DockPanel.Dock="Left" Content="Войти" IsVisible="{Binding IsSignIn}" Margin="5" Command="{Binding SignInCommand}"/>
+                <Button DockPanel.Dock="Left" Content="Зарегистрироваться" IsVisible="{Binding !IsSignIn}" Margin="5" Command="{Binding SignUpCommand}"/>
+                <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Content="Очистить" Command="{Binding ClearSingInput}"/>
+                </DockPanel>
+                <StackPanel Margin="5" >
+                <!-- поля для авторизации и регистрации -->
+                    <TextBlock Margin="0 2" Text="Login" />
+                    <TextBox Watermark="Email" Text="{Binding Login}" />
+                    <TextBlock Margin="0 2" Text="Password" />
+                    <TextBox Watermark="Password" Text="{Binding Password}" />
+                </StackPanel>
+            </DockPanel>
+        </DockPanel>
+    </Border>
+    </Panel>    
+             
+</UserControl>

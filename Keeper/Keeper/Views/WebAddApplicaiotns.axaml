@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Keeper.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Keeper.Views.WebAddApplications"
+             x:DataType="vm:MainViewModel">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="15" Orientation="Horizontal">
+              <Button Background="transparent" Padding="0" Command="{Binding ShowSingleCreateApplicaitonCommand}">
+                <Border Width="300" Height="300" Padding="10" Background="LightGray" CornerRadius="15">
+                  <DockPanel Margin="10">
+                    <TextBlock Text="Одиночное посещение" DockPanel.Dock="Bottom" TextAlignment="Center"/>
+                    <Image Source="/Assets/User.jpg" HorizontalAlignment="Center"/>
+                  </DockPanel>
+                </Border>
+              </Button>
+              <Button Background="transparent" Padding="0" Command="{Binding ShowGroupCreateApplicaitonCommand}">
+                <Border Width="300" Height="300" Background="LightGray" CornerRadius="15">
+                  <DockPanel Margin="20">
+                    <TextBlock Text="Групповое посещение" DockPanel.Dock="Bottom" TextAlignment="Center"/>
+                    <Image Source="/Assets/User.jpg" HorizontalAlignment="Center"/>
+                  </DockPanel>
+                </Border>
+              </Button>
+            </StackPanel>
+</UserControl>
